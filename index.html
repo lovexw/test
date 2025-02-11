@@ -3,8 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>文件列表</title>
+    <title>文件下载中心</title>
     <style>
+        :root {
+            --primary-color: #07C160;
+            --hover-color: #06ae56;
+            --text-color: #000000;
+            --bg-color: #EDEDED;
+            --card-bg: #ffffff;
+            --border-color: #EDEDED;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -14,22 +23,37 @@
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             line-height: 1.6;
-            padding: 2rem;
-            max-width: 1200px;
+            padding: 0;
+            max-width: 100%;
             margin: 0 auto;
-            background-color: #f5f5f5;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        .container {
+            padding: 0;
+        }
+
+        header {
+            text-align: center;
+            margin: 1rem 0;
+            padding: 1rem;
         }
 
         h1 {
-            text-align: center;
-            color: #333;
-            margin-bottom: 2rem;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 1.1rem;
         }
 
         .file-list {
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            background: var(--card-bg);
+            border-radius: 0;
             overflow: hidden;
         }
 
@@ -37,8 +61,8 @@
             display: flex;
             align-items: center;
             padding: 1rem;
-            border-bottom: 1px solid #eee;
-            transition: background-color 0.2s;
+            border-bottom: 1px solid var(--border-color);
+            transition: all 0.3s ease;
         }
 
         .file-item:last-child {
@@ -46,52 +70,174 @@
         }
 
         .file-item:hover {
-            background-color: #f8f9fa;
+            background-color: rgba(74, 144, 226, 0.05);
+            transform: translateX(0);
         }
 
         .file-icon {
-            width: 24px;
-            height: 24px;
+            width: 32px;
+            height: 32px;
             margin-right: 1rem;
+            color: var(--primary-color);
+        }
+
+        .file-info {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
         }
 
         .file-name {
-            flex-grow: 1;
-            color: #333;
+            color: var(--text-color);
             text-decoration: none;
+            font-weight: 500;
+            margin-bottom: 0.25rem;
         }
 
-        .file-name:hover {
-            color: #007bff;
+        .file-meta {
+            font-size: 0.875rem;
+            color: #666;
+        }
+
+        .download-btn {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: normal;
+            transition: background-color 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .download-btn:hover {
+            background-color: var(--hover-color);
+        }
+
+        .download-icon {
+            width: 16px;
+            height: 16px;
         }
 
         @media (max-width: 768px) {
             body {
-                padding: 1rem;
+                padding: 0;
+            }
+
+            h1 {
+                font-size: 1.2rem;
             }
 
             .file-item {
-                padding: 0.75rem;
+                padding: 0.8rem 1rem;
+            }
+
+            .download-btn {
+                padding: 0.3rem 0.8rem;
+                font-size: 0.8rem;
+            }
+
+            .file-name {
+                font-size: 0.9rem;
+            }
+
+            .file-meta {
+                font-size: 0.75rem;
+            }
+
+            .file-icon {
+                width: 24px;
+                height: 24px;
             }
         }
     </style>
 </head>
 <body>
-    <h1>文件列表</h1>
-    <div class="file-list">
-        <div class="file-item">
-            <svg class="file-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M14 3v4a1 1 0 001 1h4"/>
-                <path d="M17 21H7a2 2 0 01-2-2V5a2 2 0 012-2h7l5 5v11a2 2 0 01-2 2z"/>
-            </svg>
-            <a href="book/清华-DeepSeek：从入门到精通.pdf" class="file-name" download>清华-DeepSeek：从入门到精通.pdf</a>
-        </div>
-        <div class="file-item">
-            <svg class="file-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M14 3v4a1 1 0 001 1h4"/>
-                <path d="M17 21H7a2 2 0 01-2-2V5a2 2 0 012-2h7l5 5v11a2 2 0 01-2 2z"/>
-            </svg>
-            <a href="book/通往比特币之路.pdf" class="file-name" download>通往比特币之路.pdf</a>
+    <div class="container">
+        <header>
+            <h1>文件下载中心</h1>
+            <p class="subtitle">快速、便捷地下载您需要的文件</p>
+        </header>
+
+        <div class="file-list">
+            <div class="file-item">
+                <svg class="file-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M14 3v4a1 1 0 001 1h4"/>
+                    <path d="M17 21H7a2 2 0 01-2-2V5a2 2 0 012-2h7l5 5v11a2 2 0 01-2 2z"/>
+                </svg>
+                <div class="file-info">
+                    <a href="book/DeepSeek 15天指导手册——从入门到精通.pdf" class="file-name">DeepSeek 15天指导手册——从入门到精通.pdf</a>
+                    <span class="file-meta">PDF文档 • 更新时间：2024-01-15</span>
+                </div>
+                <a href="book/DeepSeek 15天指导手册——从入门到精通.pdf" class="download-btn" download>
+                    <svg class="download-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+                        <path d="M7 10l5 5 5-5"/>
+                        <path d="M12 15V3"/>
+                    </svg>
+                    下载
+                </a>
+            </div>
+
+            <div class="file-item">
+                <svg class="file-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M14 3v4a1 1 0 001 1h4"/>
+                    <path d="M17 21H7a2 2 0 01-2-2V5a2 2 0 012-2h7l5 5v11a2 2 0 01-2 2z"/>
+                </svg>
+                <div class="file-info">
+                    <a href="book/囤比特币_ahr999.pdf" class="file-name">囤比特币_ahr999.pdf</a>
+                    <span class="file-meta">PDF文档 • 更新时间：2024-01-15</span>
+                </div>
+                <a href="book/囤比特币_ahr999.pdf" class="download-btn" download>
+                    <svg class="download-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+                        <path d="M7 10l5 5 5-5"/>
+                        <path d="M12 15V3"/>
+                    </svg>
+                    下载
+                </a>
+            </div>
+
+            <div class="file-item">
+                <svg class="file-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M14 3v4a1 1 0 001 1h4"/>
+                    <path d="M17 21H7a2 2 0 01-2-2V5a2 2 0 012-2h7l5 5v11a2 2 0 01-2 2z"/>
+                </svg>
+                <div class="file-info">
+                    <a href="book/小吴乐意-通往比特币之路.pdf" class="file-name">小吴乐意-通往比特币之路.pdf</a>
+                    <span class="file-meta">PDF文档 • 更新时间：2024-01-15</span>
+                </div>
+                <a href="book/小吴乐意-通往比特币之路.pdf" class="download-btn" download>
+                    <svg class="download-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+                        <path d="M7 10l5 5 5-5"/>
+                        <path d="M12 15V3"/>
+                    </svg>
+                    下载
+                </a>
+            </div>
+
+            <div class="file-item">
+                <svg class="file-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M14 3v4a1 1 0 001 1h4"/>
+                    <path d="M17 21H7a2 2 0 01-2-2V5a2 2 0 012-2h7l5 5v11a2 2 0 01-2 2z"/>
+                </svg>
+                <div class="file-info">
+                    <a href="book/清华-DeepSeek：从入门到精通.pdf" class="file-name">清华-DeepSeek：从入门到精通.pdf</a>
+                    <span class="file-meta">PDF文档 • 更新时间：2024-01-15</span>
+                </div>
+                <a href="book/清华-DeepSeek：从入门到精通.pdf" class="download-btn" download>
+                    <svg class="download-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+                        <path d="M7 10l5 5 5-5"/>
+                        <path d="M12 15V3"/>
+                    </svg>
+                    下载
+                </a>
+            </div>
         </div>
     </div>
 </body>
